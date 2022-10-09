@@ -5,19 +5,17 @@ public class JavaNameValidator {
         if (name.isEmpty()) {
             return false;
         }
-        boolean valid = true;
-        for (int i = 0; i < name.length(); i++) {
+        if (!Character.isLowerCase(name.charAt(0))) {
+            return false;
+        }
+        for (int i = 1; i < name.length(); i++) {
             int code = name.codePointAt(i);
-            if (i == 0 && !isLowerLatinLetter(code)) {
-                valid = false;
-                break;
-            } else if (!(isSpecialSymbol(code) || isUpperLatinLetter(code)
+            if (!(isSpecialSymbol(code) || isUpperLatinLetter(code)
                     || isLowerLatinLetter(code) || Character.isDigit(code))) {
-                valid = false;
-                break;
+                return false;
             }
         }
-        return valid;
+        return true;
     }
 
     public static boolean isSpecialSymbol(int code) {
